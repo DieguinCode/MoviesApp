@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainSceneController {
 
@@ -26,7 +27,7 @@ public class MainSceneController {
 
     @FXML
     public void initialize() {
-        Image image = new Image("file:C:/POO/camisa.jpg");
+        Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/camisa.jpg")).toExternalForm());
         productImage.setImage(image);
 
         priceLabel.textProperty().bind(price);
@@ -34,7 +35,7 @@ public class MainSceneController {
 
     @FXML
     protected void applyDiscount() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("discount-scene.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("discount-scene.fxml")));
         Stage stage = (Stage) productImage.getScene().getWindow();
         Scene s = new Scene(root, 720, 720);
         stage.setScene(s);
