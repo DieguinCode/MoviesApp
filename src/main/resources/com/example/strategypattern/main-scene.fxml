@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.strategypattern.MainSceneController">
+    <center>
+        <HBox alignment="CENTER" spacing="20">
+            <!-- Left: Image -->
+            <ImageView fx:id="productImage" fitWidth="200" fitHeight="300" />
+
+            <!-- Right: Label and Button -->
+            <VBox alignment="CENTER_LEFT" spacing="10">
+                <Label fx:id="priceLabel" />
+                <Button text="Aplicar Desconto" onAction="#applyDiscount" />
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>
