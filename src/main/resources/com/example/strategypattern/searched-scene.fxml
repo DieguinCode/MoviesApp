@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.strategypattern.MovieSearchedSceneController">
+
+    <center>
+        <HBox spacing="10" style="-fx-alignment: center-left;">
+            <ImageView fx:id="imageView" fitWidth="200" preserveRatio="true"/>
+
+            <VBox spacing="5" alignment="CENTER">
+                <Label fx:id="titleLabel" text="Title: "/>
+                <Label fx:id="yearLabel" text="Year: "/>
+                <Label fx:id="rankLabel" text="Rank: "/>
+                <Label fx:id="actorsLabel" text="Actors/Director: "/>
+                <Label fx:id="categoryLabel" text="Category: "/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="previousButton" text="Previous" HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="nextButton" text="Next" HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
