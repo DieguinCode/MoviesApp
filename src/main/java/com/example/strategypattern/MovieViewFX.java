@@ -33,34 +33,14 @@ public class MovieViewFX {
         //TODO
     }
 
-    public static void searchedScene(List<CrucialSearchElements> crucialSearchElementsList) throws IOException{
-        final int[] currentIndex = {0};
-
+    public static void searchedScene(List<CrucialSearchElements> movieList) throws IOException{
         FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("searched-scene.fxml"));
         Parent root = loader.load();
-        MovieSearchedSceneController controller = loader.getController();
 
-        //Update for the first Scene.
-        controller.updateContent(crucialSearchElementsList.getFirst());
+        MovieSearchedSceneController controller = loader.getController();
+        controller.setMovies(movieList);
 
         Scene scene = new Scene(root);
-
-        controller.getPreviousButton().setOnAction(e -> {
-            if (currentIndex[0] > 0) {
-                currentIndex[0]--;
-                controller.updateContent(crucialSearchElementsList.get(currentIndex[0]));
-                stage.show();
-            }
-        });
-
-        controller.getNextButton().setOnAction(e -> {
-            if (currentIndex[0] < crucialSearchElementsList.size() - 1) {
-                currentIndex[0]++;
-                controller.updateContent(crucialSearchElementsList.get(currentIndex[0]));
-                stage.show();
-            }
-        });
-
         stage.setScene(scene);
         stage.show();
     }
