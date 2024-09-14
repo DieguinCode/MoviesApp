@@ -15,12 +15,7 @@ public class MoviesApp extends Application {
     public void start(Stage stage) throws IOException {
 
         MovieViewFX.stage = stage;
-
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-scene.fxml")));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Movie App");
-        stage.show();
+        MovieViewFX.initialScene();
     }
 
     public static void main(String[] args) {launch();}

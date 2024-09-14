@@ -2,7 +2,7 @@ package com.example.strategypattern;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -38,7 +38,7 @@ public class MovieModel{
                 for(int i = 0; i < root.d.size(); ++i){
                     D item = root.d.get(i);
                     if(item.i == null || item.l == null || item.y == null || item.rank == null || item.s == null
-                            || item.q == null){
+                            || item.q == null || item.id == null){
                         continue;
                     }
                     crucialElementsList.add(new CrucialSearchElements(item));
@@ -55,10 +55,136 @@ public class MovieModel{
                    throw new RuntimeException(e);
                }
             }else{
-                System.out.println("XABUUUU");
+                //TODO
             }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
+    public static void getRecommendations(List<CrucialSearchElements> movies){
+        //TODO
+    }
+
+    public static void addWatched(int grade, CrucialSearchElements crucialSearchElement){
+        String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl + ";" +
+                Integer.toString(grade) + ";" + crucialSearchElement.id;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("watched.txt", true))){
+            writer.write(newLine);
+            writer.newLine();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static void getWatched(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("watched.txt"))){
+            List<CrucialSearchElements> result = new ArrayList<>();
+            String line;
+            while((line = reader.readLine()) != null){
+                int first_semicolon = line.indexOf(';');
+                String tittle = line.substring(0, first_semicolon);
+
+                String imageUrl = "";
+                for(int i = first_semicolon + 1; i < line.length(); ++i){
+                    if(line.charAt(i) == ';'){
+                        imageUrl = line.substring(first_semicolon + 1, i);
+                        break;
+                    }
+                }
+
+                int last_semicolon = line.lastIndexOf(';');
+                String id = line.substring(last_semicolon+1);
+
+                int grade = Character.getNumericValue(line.charAt(last_semicolon-1));
+
+                D item = new D();
+                item.id = id;
+                item.l = tittle;
+                item.rank = grade;
+                item.i = new I();
+                item.i.imageUrl = imageUrl;
+
+                result.add(new CrucialSearchElements(item));
+            }
+
+            MovieViewFX.watchedScene(result);
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static void removeMovie(String id, String fileName){
+        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+            String line;
+            StringBuffer inputBuffer = new StringBuffer();
+            while((line = reader.readLine()) != null){
+                if(line.contains(id)){
+                    //Empty Line
+                    inputBuffer.append('\n');
+                    break;
+                }else{
+                    inputBuffer.append(line);
+                    inputBuffer.append('\n');
+                }
+            }
+            reader.close();
+
+            // write the new string with the replaced line OVER the same file
+            FileOutputStream fileOut = new FileOutputStream("notes.txt");
+            fileOut.write(inputBuffer.toString().getBytes());
+            fileOut.close();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static void addFavorite(CrucialSearchElements crucialSearchElement) {
+        String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl +
+                                 ";" + crucialSearchElement.id;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("favorites.txt", true))){
+            writer.write(newLine);
+            writer.newLine();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static void getFavorites(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))){
+            List<CrucialSearchElements> result = new ArrayList<>();
+            String line;
+            while((line = reader.readLine()) != null){
+                int first_semicolon = line.indexOf(';');
+                String tittle = line.substring(0, first_semicolon);
+
+                String imageUrl = "";
+                for(int i = first_semicolon + 1; i < line.length(); ++i){
+                    if(line.charAt(i) == ';'){
+                        imageUrl = line.substring(first_semicolon + 1, i);
+                        break;
+                    }
+                }
+
+                int last_semicolon = line.lastIndexOf(';');
+                String id = line.substring(last_semicolon+1);
+
+                D item = new D();
+                item.id = id;
+                item.l = tittle;
+                item.i = new I();
+                item.i.imageUrl = imageUrl;
+
+                result.add(new CrucialSearchElements(item));
+            }
+
+            MovieViewFX.favoriteScene(result);
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
 }

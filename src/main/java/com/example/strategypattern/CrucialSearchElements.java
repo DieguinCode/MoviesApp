@@ -7,14 +7,18 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class CrucialSearchElements {
+    String id;
+    String imageUrl;
     Image image;
     String title;
     Integer year;
-    Integer rank;
+    Integer rank; //Grade
     String actors;
     String style;
 
     public CrucialSearchElements(D item) {
+        this.id = item.id;
+        this.imageUrl = item.i.imageUrl;
         this.title = item.l;
         this.year = item.y;
         this.rank = item.rank;

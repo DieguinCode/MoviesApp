@@ -3,10 +3,12 @@ package com.example.strategypattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MovieSearchedSceneController {
 
@@ -19,11 +21,11 @@ public class MovieSearchedSceneController {
     @FXML
     private Label movieYear;
     @FXML
-    private Label movieRank;
-    @FXML
     private Button previousButton;
     @FXML
     private Button nextButton;
+    @FXML
+    private Button watchedButton;
 
     private List<CrucialSearchElements> movies;
     private int currentIndex = 0;
@@ -37,6 +39,23 @@ public class MovieSearchedSceneController {
     public void initialize() {
         previousButton.setOnAction(e -> showPreviousMovie());
         nextButton.setOnAction(e -> showNextMovie());
+        watchedButton.setOnAction(e -> {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("MoviesApp");
+            dialog.setHeaderText("Watched");
+            dialog.setContentText("Add a Grade (0-10): ");
+
+            Optional<String> result = dialog.showAndWait();
+
+            result.ifPresent(grade -> {
+                try {
+                    int g = Integer.parseInt(grade);
+                    MovieModel.addWatched(g, movies.get(currentIndex));
+                } catch (NumberFormatException ex) {
+                    //TODO
+                }
+            });
+        });
     }
 
     private void showPreviousMovie() {
@@ -58,7 +77,6 @@ public class MovieSearchedSceneController {
         movieTitle.setText(movie.title);
         movieActors.setText("Actors: " + movie.actors);
         movieYear.setText("Year: " + movie.year);
-        movieRank.setText("Rank: " + movie.rank);
         moviePoster.setImage(movie.image);
     }
 }

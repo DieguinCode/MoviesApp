@@ -28,12 +28,7 @@ public class MovieMainSceneController {
             }
         });
         favoriteButton.setOnAction(_ -> {
-            try {
-                MovieViewFX.favoriteScene();
-            }
-            catch (IOException e){
-                throw new RuntimeException(e);
-            }
+            MovieModel.getFavorites();
         });
         recommendationButton.setOnAction(_ -> {
             try {
@@ -44,12 +39,7 @@ public class MovieMainSceneController {
             }
         });
         watchedButton.setOnAction(_ -> {
-            try {
-                MovieViewFX.watchedScene();
-            }
-            catch (IOException e){
-                throw new RuntimeException(e);
-            }
+            MovieModel.getWatched();
         });
     }
 }
