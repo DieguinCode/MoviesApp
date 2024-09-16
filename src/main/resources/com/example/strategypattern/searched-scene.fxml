@@ -18,10 +18,10 @@
         <Label fx:id="movieYear" wrapText="true"/>
     </VBox>
 
-    <Button fx:id="previousButton" text="Previous"
+    <Button fx:id="previousButton" text="Anterior"
             AnchorPane.leftAnchor="20" AnchorPane.bottomAnchor="50"/>
-    <Button fx:id="nextButton" text="Next"
+    <Button fx:id="nextButton" text="Próximo"
             AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="50"/>
-    <Button fx:id="watchedButton" text="Watched"
+    <Button fx:id="watchedButton" text="Assistido"
             AnchorPane.topAnchor="10" AnchorPane.rightAnchor="20"/>
 </AnchorPane>

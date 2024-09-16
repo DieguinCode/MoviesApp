@@ -7,40 +7,38 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            prefHeight="600.0" prefWidth="600.0" fx:controller="com.example.strategypattern.MovieMainSceneController">
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.strategypattern.MovieMainSceneController">
 
     <!-- Central VBox -->
     <center>
         <VBox alignment="CENTER" spacing="20">
             <!-- Welcome Label -->
-            <Label text="Welcome to MoviesApp" style="-fx-text-fill: darkblue;">
+            <Label style="-fx-text-fill: darkblue;" text="MoviesApp">
                 <font>
-                    <Font name="Arial Bold" size="36"/>
+                    <Font name="Arial Bold" size="36" />
                 </font>
             </Label>
 
             <!-- HBox for buttons -->
             <HBox alignment="CENTER" spacing="20">
-                <Button fx:id="favoriteButton" text="My Favorites">
+                <Button fx:id="favoriteButton" text="Favoritos">
                     <font>
-                        <Font name="Arial" size="16"/>
+                        <Font name="Arial" size="16" />
                     </font>
                 </Button>
-                <Button fx:id="searchButton" text="Search">
+                <Button fx:id="searchButton" text="Pesquisar">
                     <font>
-                        <Font name="Arial" size="16"/>
+                        <Font name="Arial" size="16" />
                     </font>
                 </Button>
-                <Button fx:id="recommendationButton" text="Recommendations">
+                <Button fx:id="recommendationButton" text="Recomendações">
                     <font>
-                        <Font name="Arial" size="16"/>
+                        <Font name="Arial" size="16" />
                     </font>
                 </Button>
-                <Button fx:id="watchedButton" text="Watched and Grades">
+                <Button fx:id="watchedButton" text="Assistidos">
                     <font>
-                        <Font name="Arial" size="16"/>
+                        <Font name="Arial" size="16" />
                     </font>
                 </Button>
             </HBox>
