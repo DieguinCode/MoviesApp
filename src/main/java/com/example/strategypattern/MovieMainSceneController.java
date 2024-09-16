@@ -31,12 +31,7 @@ public class MovieMainSceneController {
             MovieModel.getFavorites();
         });
         recommendationButton.setOnAction(_ -> {
-            try {
-                MovieViewFX.recommendationScene();
-            }
-            catch (IOException e){
-                throw new RuntimeException(e);
-            }
+           MovieModel.getRecommendations();
         });
         watchedButton.setOnAction(_ -> {
             MovieModel.getWatched();

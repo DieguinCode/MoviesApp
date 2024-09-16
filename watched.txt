@@ -1,2 +1,3 @@
 The Avengers;https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg;10;tt0848228
 The Batman;https://m.media-amazon.com/images/M/MV5BOGE2NWUwMDItMjA4Yi00N2Y3LWJjMzEtMDJjZTMzZTdlZGE5XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg;8;tt1877830
+Dune: Part Two;https://m.media-amazon.com/images/M/MV5BY2Q2MGYyZjItMjE0Yi00NmYxLWJhZTAtNjcyYTY1MGM1ZGIzXkEyXkFqcGc@._V1_.jpg;10;tt15239678

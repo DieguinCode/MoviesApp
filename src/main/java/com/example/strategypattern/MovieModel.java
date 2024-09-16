@@ -55,15 +55,95 @@ public class MovieModel{
                    throw new RuntimeException(e);
                }
             }else{
-                //TODO
+                System.out.println("xiiii");
             }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public static void getRecommendations(List<CrucialSearchElements> movies){
-        //TODO
+    public static void getRecommendations(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))){
+            List<CrucialSearchElements> result = new ArrayList<>();
+            String line;
+            int counter_lines = 0;
+            while((line = reader.readLine()) != null && counter_lines != 3){
+                int first_semicolon = line.indexOf(';');
+                String tittle = line.substring(0, first_semicolon);
+
+                String imageUrl = "";
+                for(int i = first_semicolon + 1; i < line.length(); ++i){
+                    if(line.charAt(i) == ';'){
+                        imageUrl = line.substring(first_semicolon + 1, i);
+                        break;
+                    }
+                }
+
+                int last_semicolon = line.lastIndexOf(';');
+                String id = line.substring(last_semicolon+1);
+
+                D item = new D();
+                item.id = id;
+                item.l = tittle;
+                item.i = new I();
+                item.i.imageUrl = imageUrl;
+
+                result.add(new CrucialSearchElements(item));
+                counter_lines++;
+            }
+
+            List<CrucialSearchElements> r = new ArrayList<>();
+
+            for (CrucialSearchElements crucialSearchElements : result) {
+                String id = crucialSearchElements.id;
+
+                String uri = "https://online-movie-database.p.rapidapi.com/title/v2/get-related-interests?tconst=";
+                uri = uri.concat(id);
+
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(uri))
+                        .header("x-rapidapi-key", "974c81fbd5mshbcab637a2a9ac35p143d1djsne324609cc13d")
+                        .header("x-rapidapi-host", "online-movie-database.p.rapidapi.com")
+                        .method("GET", HttpRequest.BodyPublishers.noBody())
+                        .build();
+
+
+                try (HttpClient client = HttpClient.newHttpClient()) {
+                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    if (response.statusCode() == 200) {
+                        String response_body = response.body();
+
+                        //JSON
+                        Gson gson = new Gson();
+                        RespRec respRec = gson.fromJson(response_body, RespRec.class);
+
+                        String title =  respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().titleText.text;
+                        String imageUrl = respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().primaryImage.url;
+
+                        D item = new D();
+                        item.l = title;
+                        item.i = new I();
+                        item.i.imageUrl = imageUrl;
+
+                        r.add(new CrucialSearchElements(item));
+
+                        /*System.out.println("Title: " +
+                                respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().titleText.text);
+                        System.out.println("URL: " + respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().primaryImage.url); */
+
+                    } else {
+                        System.out.println("xiiii");
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+
+            MovieViewFX.recommendationScene(r);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 
     public static void addWatched(int grade, CrucialSearchElements crucialSearchElement){
@@ -96,7 +176,13 @@ public class MovieModel{
                 int last_semicolon = line.lastIndexOf(';');
                 String id = line.substring(last_semicolon+1);
 
-                int grade = Character.getNumericValue(line.charAt(last_semicolon-1));
+                int grade = 0;
+                if(line.charAt(last_semicolon-2) == ';'){
+                    grade = Character.getNumericValue(line.charAt(last_semicolon-1));
+                }else{
+                    String g = "" + line.charAt(last_semicolon-2) + line.charAt(last_semicolon-1);
+                    grade = Integer.parseInt(g);
+                }
 
                 D item = new D();
                 item.id = id;

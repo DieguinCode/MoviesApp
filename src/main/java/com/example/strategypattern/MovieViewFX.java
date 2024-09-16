@@ -42,10 +42,19 @@ public class MovieViewFX {
 
     public static void favoriteScene(List<CrucialSearchElements> favoritesList) throws IOException{
         //TODO
+        for(CrucialSearchElements crucialSearchElement : favoritesList){
+            System.out.println("Titulo: " + crucialSearchElement.title);
+            System.out.println("Id: " + crucialSearchElement.id);
+            System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
+        }
     }
 
-    public static void recommendationScene() throws IOException{
+    public static void recommendationScene(List<CrucialSearchElements> recommendationList) throws IOException{
         //TODO
+        for(CrucialSearchElements crucialSearchElement : recommendationList){
+            System.out.println("Titulo: " + crucialSearchElement.title);
+            System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
+        }
     }
 
     public static void watchedScene(List<CrucialSearchElements> watchedList) throws IOException{
@@ -54,6 +63,7 @@ public class MovieViewFX {
             System.out.println("Titulo: " + crucialSearchElement.title);
             System.out.println("Id: " + crucialSearchElement.id);
             System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
+            System.out.println("Nota: " + crucialSearchElement.rank.toString());
         }
     }
 
