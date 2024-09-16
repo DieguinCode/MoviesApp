@@ -58,13 +58,15 @@ public class MovieViewFX {
     }
 
     public static void watchedScene(List<CrucialSearchElements> watchedList) throws IOException{
-        //TODO
-        for(CrucialSearchElements crucialSearchElement : watchedList){
-            System.out.println("Titulo: " + crucialSearchElement.title);
-            System.out.println("Id: " + crucialSearchElement.id);
-            System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
-            System.out.println("Nota: " + crucialSearchElement.rank.toString());
-        }
+        FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("watched-scene.fxml"));
+        Parent root = loader.load();
+
+        MovieWatchedSceneController controller = loader.getController();
+        controller.setMovies(watchedList);
+
+        Scene scene = new Scene(root, width, height);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void searchedScene(List<CrucialSearchElements> movieList) throws IOException{
