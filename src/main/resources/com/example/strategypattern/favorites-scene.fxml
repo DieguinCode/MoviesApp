@@ -15,7 +15,7 @@
    <children>
       <HBox prefHeight="63.0" prefWidth="604.0">
          <children>
-            <Button fx:id="backHomeButton" mnemonicParsing="false" text="Back to home" />
+            <Button fx:id="backHomeButton" mnemonicParsing="false" text="Voltar para o inicio" />
          </children>
          <padding>
             <Insets left="5.0" top="5.0" />
