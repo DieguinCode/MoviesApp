@@ -68,6 +68,7 @@ public class MovieWatchedSceneController {
         }
 
         previousButton.setDisable(pageOffset == 0);
+        nextButton.setDisable(pageOffset + 4 > movies.size());
 
     }
 
@@ -96,7 +97,7 @@ public class MovieWatchedSceneController {
     }
 
     private void showNextPage() {
-        if (pageOffset + 4 < movies.size() - 1) {
+        if (pageOffset + 4 < movies.size()) {
             pageOffset = pageOffset + 4;
             updateView();
         }
