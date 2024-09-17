@@ -9,6 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MovieModel{
 
@@ -67,7 +68,7 @@ public class MovieModel{
             List<CrucialSearchElements> result = new ArrayList<>();
             String line;
             int counter_lines = 0;
-            while((line = reader.readLine()) != null && counter_lines != 3){
+            while((line = reader.readLine()) != null && counter_lines != 5){
                 int first_semicolon = line.indexOf(';');
                 String tittle = line.substring(0, first_semicolon);
 
@@ -117,8 +118,10 @@ public class MovieModel{
                         Gson gson = new Gson();
                         RespRec respRec = gson.fromJson(response_body, RespRec.class);
 
-                        String title =  respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().titleText.text;
-                        String imageUrl = respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().primaryImage.url;
+                        Random random = new Random();
+                        int index = random.nextInt(3);
+                        String title =  respRec.data.title.relatedInterests.edges.get(index).node.primaryImage.titles.getFirst().titleText.text;
+                        String imageUrl = respRec.data.title.relatedInterests.edges.get(index).node.primaryImage.titles.getFirst().primaryImage.url;
 
                         D item = new D();
                         item.l = title;

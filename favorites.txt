@@ -1,1 +1,4 @@
 The Batman;https://m.media-amazon.com/images/M/MV5BOGE2NWUwMDItMjA4Yi00N2Y3LWJjMzEtMDJjZTMzZTdlZGE5XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg;tt1877830
+Dune: Part Two;https://m.media-amazon.com/images/M/MV5BY2Q2MGYyZjItMjE0Yi00NmYxLWJhZTAtNjcyYTY1MGM1ZGIzXkEyXkFqcGc@._V1_.jpg;tt15239678
+Everything Everywhere All at Once;https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_.jpg;tt6710474
+Toy Story;https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_.jpg;tt0114709
