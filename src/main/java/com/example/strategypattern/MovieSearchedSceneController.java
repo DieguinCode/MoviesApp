@@ -7,11 +7,14 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public class MovieSearchedSceneController {
 
+    @FXML
+    private Button backHomeButton;
     @FXML
     private ImageView moviePoster;
     @FXML
@@ -37,6 +40,7 @@ public class MovieSearchedSceneController {
 
     @FXML
     public void initialize() {
+        backHomeButton.setOnAction(e -> returnToInitialScene());
         previousButton.setOnAction(e -> showPreviousMovie());
         nextButton.setOnAction(e -> showNextMovie());
         watchedButton.setOnAction(e -> {
@@ -56,6 +60,14 @@ public class MovieSearchedSceneController {
                 }
             });
         });
+    }
+
+    private void returnToInitialScene () {
+        try {
+            MovieViewFX.initialScene();
+        } catch (IOException e) {
+            //TODO
+        }
     }
 
     private void showPreviousMovie() {
