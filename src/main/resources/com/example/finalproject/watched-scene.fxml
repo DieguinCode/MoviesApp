@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject.MovieWatchedSceneController">
+   <children>
+      <HBox prefHeight="63.0" prefWidth="604.0">
+         <children>
+            <Button fx:id="backHomeButton" mnemonicParsing="false" text="Voltar para o inicio" />
+         </children>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <GridPane fx:id="moviesGrid" prefHeight="418.0" prefWidth="604.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox fx:id="movie1" alignment="CENTER" prefHeight="72.0" prefWidth="176.0">
+               <children>
+                  <ImageView fx:id="moviePoster1" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="movieTitle1" />
+                  <Label fx:id="movieRating1" />
+               </children>
+            </VBox>
+            <VBox fx:id="movie2" alignment="CENTER" prefHeight="72.0" prefWidth="176.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="moviePoster2" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="movieTitle2" />
+                  <Label fx:id="movieRating2" />
+               </children>
+            </VBox>
+            <VBox fx:id="movie3" alignment="CENTER" prefHeight="72.0" prefWidth="176.0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="moviePoster3" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="movieTitle3" />
+                  <Label fx:id="movieRating3" />
+               </children>
+            </VBox>
+            <VBox fx:id="movie4" alignment="CENTER" prefHeight="72.0" prefWidth="176.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="moviePoster4" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="movieTitle4" />
+                  <Label fx:id="movieRating4" />
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <HBox alignment="BASELINE_CENTER" prefHeight="56.0" prefWidth="604.0" spacing="20.0">
+         <children>
+            <Button fx:id="previousButton" mnemonicParsing="false" text="Anterior">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+            <Button fx:id="nextButton" mnemonicParsing="false" text="Próximo">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
