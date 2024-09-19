@@ -41,6 +41,11 @@
                         <Font name="Arial" size="16" />
                     </font>
                 </Button>
+                <Button fx:id="interestsButton" text="Lista de Interesses">
+                <font>
+                    <Font name="Arial" size="16" />
+                </font>
+                </Button>
             </HBox>
         </VBox>
     </center>

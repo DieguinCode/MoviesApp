@@ -276,4 +276,50 @@ public class MovieModel{
         }
     }
 
+    public static void getInterests(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("interests.txt"))){
+            List<CrucialSearchElements> result = new ArrayList<>();
+            String line;
+            while((line = reader.readLine()) != null){
+                int first_semicolon = line.indexOf(';');
+                String tittle = line.substring(0, first_semicolon);
+
+                String imageUrl = "";
+                for(int i = first_semicolon + 1; i < line.length(); ++i){
+                    if(line.charAt(i) == ';'){
+                        imageUrl = line.substring(first_semicolon + 1, i);
+                        break;
+                    }
+                }
+
+                int last_semicolon = line.lastIndexOf(';');
+                String id = line.substring(last_semicolon+1);
+
+                D item = new D();
+                item.id = id;
+                item.l = tittle;
+                item.i = new I();
+                item.i.imageUrl = imageUrl;
+
+                result.add(new CrucialSearchElements(item));
+            }
+
+            MovieViewFX.interestsScene(result);
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static void addInterest(CrucialSearchElements crucialSearchElement){
+        String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl +
+                ";" + crucialSearchElement.id;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("interests.txt", true))){
+            writer.write(newLine);
+            writer.newLine();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
 }

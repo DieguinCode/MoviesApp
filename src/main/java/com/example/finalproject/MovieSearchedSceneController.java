@@ -28,6 +28,8 @@ public class MovieSearchedSceneController {
     private Button nextButton;
     @FXML
     private Button watchedButton;
+    @FXML
+    private Button interestsButton;
 
     private List<CrucialSearchElements> movies;
     private int currentIndex = 0;
@@ -39,10 +41,10 @@ public class MovieSearchedSceneController {
 
     @FXML
     public void initialize() {
-        backHomeButton.setOnAction(e -> returnToInitialScene());
-        previousButton.setOnAction(e -> showPreviousMovie());
-        nextButton.setOnAction(e -> showNextMovie());
-        watchedButton.setOnAction(e -> {
+        backHomeButton.setOnAction(_ -> returnToInitialScene());
+        previousButton.setOnAction(_ -> showPreviousMovie());
+        nextButton.setOnAction(_ -> showNextMovie());
+        watchedButton.setOnAction(_ -> {
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("MoviesApp");
             dialog.setHeaderText("Watched");
@@ -58,6 +60,9 @@ public class MovieSearchedSceneController {
                     //TODO
                 }
             });
+        });
+        interestsButton.setOnAction(_ -> {
+            MovieModel.addInterest(movies.get(currentIndex));
         });
     }
 

@@ -15,6 +15,8 @@ public class MovieMainSceneController {
     private Button recommendationButton;
     @FXML
     private Button watchedButton;
+    @FXML
+    private Button interestsButton;
 
     //We don't have data to request to the model -> We call the View.
     @FXML
@@ -34,6 +36,9 @@ public class MovieMainSceneController {
         });
         watchedButton.setOnAction(_ -> {
             MovieModel.getWatched();
+        });
+        interestsButton.setOnAction(_ -> {
+            MovieModel.getInterests();
         });
     }
 }

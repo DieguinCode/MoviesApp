@@ -18,5 +18,6 @@
     <Button fx:id="previousButton" text="Anterior" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="20" />
     <Button fx:id="nextButton" text="Próximo" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="20" />
     <Button fx:id="watchedButton" text="Assistido" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10" />
+    <Button fx:id="interestsButton" text="Tenho Interesse" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="40" />
    <Button fx:id="backHomeButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Voltar para o inicio" />
 </AnchorPane>

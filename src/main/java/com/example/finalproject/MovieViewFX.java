@@ -56,6 +56,15 @@ public class MovieViewFX {
         }
     }
 
+    public static void interestsScene(List<CrucialSearchElements> interestsList){
+        //TODO
+        for(CrucialSearchElements crucialSearchElement : interestsList){
+            System.out.println("Titulo: " + crucialSearchElement.title);
+            System.out.println("Id: " + crucialSearchElement.id);
+            System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
+        }
+    }
+
     public static void watchedScene(List<CrucialSearchElements> watchedList) throws IOException{
         FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("watched-scene.fxml"));
         Parent root = loader.load();
