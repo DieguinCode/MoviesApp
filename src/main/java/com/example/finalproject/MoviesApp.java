@@ -12,6 +12,11 @@ public class MoviesApp extends Application {
 
         MovieViewFX.stage = stage;
         MovieViewFX.initialScene();
+
+        stage.minHeightProperty().set(400);
+        stage.minWidthProperty().set(400);
+        stage.setMaximized(true);
+
     }
 
     public static void main(String[] args) {launch();}

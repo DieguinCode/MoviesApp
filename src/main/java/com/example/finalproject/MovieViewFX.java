@@ -17,18 +17,18 @@ public class MovieViewFX {
 
     public static void initialScene() throws IOException {
 
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            width = newVal.doubleValue();
-        });
+        // stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+        //     width = newVal.doubleValue();
+        // });
 
-        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            height = newVal.doubleValue();
-        });
+        // stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+        //     height = newVal.doubleValue();
+        // });
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(MovieViewFX.class.getResource("main-scene.fxml")));
         Scene scene = new Scene(root, width, height);
         stage.setScene(scene);
-        stage.setTitle("Movie App");
+        stage.setTitle("MovieLib");
         stage.show();
     }
 
@@ -84,7 +84,7 @@ public class MovieViewFX {
         MovieSearchedSceneController controller = loader.getController();
         controller.setMovies(movieList);
 
-        Scene scene = new Scene(root, width, height);
+        Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
         stage.setScene(scene);
         stage.show();
     }

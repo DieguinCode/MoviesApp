@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Lobster';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('Lobster-Regular.ttf');
+}
+
+* {
+    -primary-background: #2D2D34;
+    -primary-text: #EDEDED;
+    -highlight-color: #ff007f;
+    -secondary-text: #9A9A9A;
+    -border-icons: #03DAC5;
+
+    -fx-text-fill: -primary-text;
+}
+
+.root {
+
+    -fx-background-color: -primary-background;
+
+}
+
+#main-title-label {
+
+    -fx-text-fill: -highlight-color;
+    -fx-font-family: 'Lobster';
+
+}
+
+.button {
+
+    -fx-background-color: -highlight-color;
+
+}
