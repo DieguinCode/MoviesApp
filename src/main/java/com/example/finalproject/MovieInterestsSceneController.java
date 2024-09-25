@@ -78,9 +78,11 @@ public class MovieInterestsSceneController {
 
             if ((i + pageOffset) < movies.size()) {
                 movie = movies.get(i + pageOffset);
+                String rank = (movie.rank != null) ? movie.rank.toString() : "---";
+                
                 moviePoster.setImage(movie.image);
                 movieTitle.setText(movie.title);
-                movieGrade.setText("Nota do filme: " + movie.rank.toString());
+                movieGrade.setText("Nota do filme: " + rank);
             } else {
                 moviePoster.setImage(null);
                 movieTitle.setText("");
