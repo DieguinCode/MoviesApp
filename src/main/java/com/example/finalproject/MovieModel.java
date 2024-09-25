@@ -284,6 +284,17 @@ public class MovieModel {
         }
     }
 
+    public static void addInterest(CrucialSearchElements crucialSearchElement) {
+        String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl +
+                ";" + crucialSearchElement.id;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("interests.txt", true))) {
+            writer.write(newLine);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void getInterests() {
         try (BufferedReader reader = new BufferedReader(new FileReader("interests.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
@@ -314,17 +325,6 @@ public class MovieModel {
 
             MovieViewFX.interestsScene(result);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void addInterest(CrucialSearchElements crucialSearchElement) {
-        String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl +
-                ";" + crucialSearchElement.id;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("interests.txt", true))) {
-            writer.write(newLine);
-            writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
