@@ -12,7 +12,7 @@ public class CrucialSearchElements {
     Image image;
     String title;
     Integer year;
-    Integer rank; //Grade
+    Integer rank; // Grade
     String actors;
     String style;
 

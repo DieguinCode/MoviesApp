@@ -29,8 +29,37 @@ public class MovieWatchedSceneController {
     public void initialize() {
         backHomeButton.setOnAction(e -> returnToInitialScene());
         previousButton.setOnAction(e -> showPreviousPage());
-        previousButton.setDisable(true);
         nextButton.setOnAction(e -> showNextPage());
+        previousButton.setDisable(true);
+    }
+
+    public void setMovies(List<CrucialSearchElements> movies) {
+        this.movies = movies;
+        updateView();
+    }
+
+    private void returnToInitialScene() {
+        try {
+            MovieViewFX.initialScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showPreviousPage() {
+        if (pageOffset <= 0) {
+            return;
+        }
+        pageOffset -= 4;
+        updateView();
+   }
+
+    private void showNextPage() {
+        if (pageOffset + 4 >= movies.size()) {
+            return;
+        }
+        pageOffset += 4;
+        updateView();
     }
 
     private void updateView() {
@@ -42,65 +71,24 @@ public class MovieWatchedSceneController {
 
         int i = 0;
         while (i < moviesGrid.getChildren().size()) {
-
             movieContainer = (VBox) moviesGrid.getChildren().get(i);
             moviePoster = (ImageView) movieContainer.getChildren().get(0);
             movieTitle = (Label) movieContainer.getChildren().get(1);
             movieGrade = (Label) movieContainer.getChildren().get(2);
 
-            if ((i+pageOffset) < movies.size()) {
-
-                movie = movies.get(i+pageOffset);
+            if ((i + pageOffset) < movies.size()) {
+                movie = movies.get(i + pageOffset);
                 moviePoster.setImage(movie.image);
                 movieTitle.setText(movie.title);
                 movieGrade.setText("Nota do filme: " + movie.rank.toString());
-
             } else {
-
                 moviePoster.setImage(null);
                 movieTitle.setText("");
                 movieGrade.setText("");
-
             }
-
             i++;
-
         }
-
-        previousButton.setDisable(pageOffset == 0);
-        nextButton.setDisable(pageOffset + 4 > movies.size());
-
+        previousButton.setDisable(pageOffset <= 0);
+        nextButton.setDisable(pageOffset + 4 >= movies.size());
     }
-
-    public void setMovies(List<CrucialSearchElements> movies) {
-        this.movies = movies;
-        updateView();
-    }
-
-    private void returnToInitialScene () {
-        try {
-            MovieViewFX.initialScene();
-        } catch (IOException e) {
-            //TODO
-        }
-    }
-
-    private void showPreviousPage() {
-        if (pageOffset >= 4) {
-            pageOffset = pageOffset - 4;
-            updateView();
-        } else if (pageOffset > 0) {
-            pageOffset = 0;
-            updateView();
-        }
-
-    }
-
-    private void showNextPage() {
-        if (pageOffset + 4 < movies.size()) {
-            pageOffset = pageOffset + 4;
-            updateView();
-        }
-    }
-    
 }

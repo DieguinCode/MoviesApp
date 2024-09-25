@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MovieModel{
+public class MovieModel {
 
-    public static void autoComplete(String userInput){
+    public static void autoComplete(String userInput) {
         String tmp = "https://online-movie-database.p.rapidapi.com/auto-complete?q=";
         String uri = tmp.concat(userInput);
 
@@ -26,62 +26,63 @@ public class MovieModel{
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
 
-        try(HttpClient client = HttpClient.newHttpClient()){
+        try (HttpClient client = HttpClient.newHttpClient()) {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if(response.statusCode() == 200){
+            if (response.statusCode() == 200) {
                 String response_body = response.body();
 
-                //JSON
+                // JSON
                 Gson gson = new Gson();
                 Root root = gson.fromJson(response_body, Root.class);
 
                 List<CrucialSearchElements> crucialElementsList = new ArrayList<>();
-                for(int i = 0; i < root.d.size(); ++i){
+                for (int i = 0; i < root.d.size(); ++i) {
                     D item = root.d.get(i);
-                    if(item.i == null || item.l == null || item.y == null || item.rank == null || item.s == null
-                            || item.q == null || item.id == null){
+                    if (item.i == null || item.l == null || item.y == null 
+                            || item.rank == null || item.s == null
+                            || item.q == null || item.id == null) {
                         continue;
                     }
                     crucialElementsList.add(new CrucialSearchElements(item));
                 }
 
-                for(CrucialSearchElements item: crucialElementsList){
+                for (CrucialSearchElements item : crucialElementsList) {
                     System.out.println(item);
                 }
 
-                //Call View
-               try{
-                   MovieViewFX.searchedScene(crucialElementsList);
-               }catch (IOException e){
-                   throw new RuntimeException(e);
-               }
-            }else{
+                // Call View
+                try {
+                    MovieViewFX.searchedScene(crucialElementsList);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
                 System.out.println("xiiii");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void getRecommendations(){
-        try(BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))){
+    public static void getRecommendations() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
             String line;
             int counter_lines = 0;
-            while((line = reader.readLine()) != null && counter_lines != 5){
+            while ((line = reader.readLine()) != null && counter_lines != 5) {
                 int first_semicolon = line.indexOf(';');
                 String tittle = line.substring(0, first_semicolon);
 
                 String imageUrl = "";
-                for(int i = first_semicolon + 1; i < line.length(); ++i){
-                    if(line.charAt(i) == ';'){
+                for (int i = first_semicolon + 1; i < line.length(); ++i) {
+                    if (line.charAt(i) == ';') {
                         imageUrl = line.substring(first_semicolon + 1, i);
                         break;
                     }
                 }
 
                 int last_semicolon = line.lastIndexOf(';');
-                String id = line.substring(last_semicolon+1);
+                String id = line.substring(last_semicolon + 1);
 
                 D item = new D();
                 item.id = id;
@@ -108,20 +109,21 @@ public class MovieModel{
                         .method("GET", HttpRequest.BodyPublishers.noBody())
                         .build();
 
-
                 try (HttpClient client = HttpClient.newHttpClient()) {
                     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                     if (response.statusCode() == 200) {
                         String response_body = response.body();
 
-                        //JSON
+                        // JSON
                         Gson gson = new Gson();
                         RespRec respRec = gson.fromJson(response_body, RespRec.class);
 
                         Random random = new Random();
                         int index = random.nextInt(3);
-                        String title =  respRec.data.title.relatedInterests.edges.get(index).node.primaryImage.titles.getFirst().titleText.text;
-                        String imageUrl = respRec.data.title.relatedInterests.edges.get(index).node.primaryImage.titles.getFirst().primaryImage.url;
+                        String title = respRec.data.title.relatedInterests.edges.get(index).node.primaryImage.titles
+                                .getFirst().titleText.text;
+                        String imageUrl = respRec.data.title.relatedInterests.edges.get(index).node.primaryImage.titles
+                                .getFirst().primaryImage.url;
 
                         D item = new D();
                         item.l = title;
@@ -130,60 +132,66 @@ public class MovieModel{
 
                         r.add(new CrucialSearchElements(item));
 
-                        /*System.out.println("Title: " +
-                                respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().titleText.text);
-                        System.out.println("URL: " + respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles.getFirst().primaryImage.url); */
+                        /*
+                         * System.out.println("Title: " +
+                         * respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles
+                         * .getFirst().titleText.text);
+                         * System.out.println("URL: " +
+                         * respRec.data.title.relatedInterests.edges.getFirst().node.primaryImage.titles
+                         * .getFirst().primaryImage.url);
+                         */
 
                     } else {
                         System.out.println("xiiii");
                     }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
 
             MovieViewFX.recommendationScene(r);
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void addWatched(int grade, CrucialSearchElements crucialSearchElement){
+    public static void addWatched(int grade, CrucialSearchElements crucialSearchElement) {
         String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl + ";" +
                 Integer.toString(grade) + ";" + crucialSearchElement.id;
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("watched.txt", true))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("watched.txt", true))) {
             writer.write(newLine);
             writer.newLine();
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void getWatched(){
-        try(BufferedReader reader = new BufferedReader(new FileReader("watched.txt"))){
+    public static void getWatched() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("watched.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
+
             String line;
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 int first_semicolon = line.indexOf(';');
                 String tittle = line.substring(0, first_semicolon);
 
                 String imageUrl = "";
-                for(int i = first_semicolon + 1; i < line.length(); ++i){
-                    if(line.charAt(i) == ';'){
+                for (int i = first_semicolon + 1; i < line.length(); ++i) {
+                    if (line.charAt(i) == ';') {
                         imageUrl = line.substring(first_semicolon + 1, i);
                         break;
                     }
                 }
 
                 int last_semicolon = line.lastIndexOf(';');
-                String id = line.substring(last_semicolon+1);
+                String id = line.substring(last_semicolon + 1);
 
                 int grade = 0;
-                if(line.charAt(last_semicolon-2) == ';'){
-                    grade = Character.getNumericValue(line.charAt(last_semicolon-1));
-                }else{
-                    String g = "" + line.charAt(last_semicolon-2) + line.charAt(last_semicolon-1);
+                if (line.charAt(last_semicolon - 2) == ';') {
+                    grade = Character.getNumericValue(line.charAt(last_semicolon - 1));
+                } else {
+                    String g = "" + line.charAt(last_semicolon - 2) + line.charAt(last_semicolon - 1);
                     grade = Integer.parseInt(g);
                 }
 
@@ -199,21 +207,21 @@ public class MovieModel{
 
             MovieViewFX.watchedScene(result);
 
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void removeMovie(String id, String fileName){
-        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+    public static void removeMovie(String id, String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             StringBuffer inputBuffer = new StringBuffer();
-            while((line = reader.readLine()) != null){
-                if(line.contains(id)){
-                    //Empty Line
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(id)) {
+                    // Empty Line
                     inputBuffer.append('\n');
                     break;
-                }else{
+                } else {
                     inputBuffer.append(line);
                     inputBuffer.append('\n');
                 }
@@ -225,40 +233,40 @@ public class MovieModel{
             fileOut.write(inputBuffer.toString().getBytes());
             fileOut.close();
 
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public static void addFavorite(CrucialSearchElements crucialSearchElement) {
         String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl +
-                                 ";" + crucialSearchElement.id;
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("favorites.txt", true))){
+                ";" + crucialSearchElement.id;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("favorites.txt", true))) {
             writer.write(newLine);
             writer.newLine();
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void getFavorites(){
-        try(BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))){
+    public static void getFavorites() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
             String line;
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 int first_semicolon = line.indexOf(';');
                 String tittle = line.substring(0, first_semicolon);
 
                 String imageUrl = "";
-                for(int i = first_semicolon + 1; i < line.length(); ++i){
-                    if(line.charAt(i) == ';'){
+                for (int i = first_semicolon + 1; i < line.length(); ++i) {
+                    if (line.charAt(i) == ';') {
                         imageUrl = line.substring(first_semicolon + 1, i);
                         break;
                     }
                 }
 
                 int last_semicolon = line.lastIndexOf(';');
-                String id = line.substring(last_semicolon+1);
+                String id = line.substring(last_semicolon + 1);
 
                 D item = new D();
                 item.id = id;
@@ -271,29 +279,29 @@ public class MovieModel{
 
             MovieViewFX.favoriteScene(result);
 
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void getInterests(){
-        try(BufferedReader reader = new BufferedReader(new FileReader("interests.txt"))){
+    public static void getInterests() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("interests.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
             String line;
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 int first_semicolon = line.indexOf(';');
                 String tittle = line.substring(0, first_semicolon);
 
                 String imageUrl = "";
-                for(int i = first_semicolon + 1; i < line.length(); ++i){
-                    if(line.charAt(i) == ';'){
+                for (int i = first_semicolon + 1; i < line.length(); ++i) {
+                    if (line.charAt(i) == ';') {
                         imageUrl = line.substring(first_semicolon + 1, i);
                         break;
                     }
                 }
 
                 int last_semicolon = line.lastIndexOf(';');
-                String id = line.substring(last_semicolon+1);
+                String id = line.substring(last_semicolon + 1);
 
                 D item = new D();
                 item.id = id;
@@ -306,19 +314,19 @@ public class MovieModel{
 
             MovieViewFX.interestsScene(result);
 
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void addInterest(CrucialSearchElements crucialSearchElement){
+    public static void addInterest(CrucialSearchElements crucialSearchElement) {
         String newLine = crucialSearchElement.title + ";" + crucialSearchElement.imageUrl +
                 ";" + crucialSearchElement.id;
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("interests.txt", true))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("interests.txt", true))) {
             writer.write(newLine);
             writer.newLine();
-        }catch (IOException ex){
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
