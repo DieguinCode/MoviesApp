@@ -38,7 +38,7 @@ public class MovieModel {
                 List<CrucialSearchElements> crucialElementsList = new ArrayList<>();
                 for (int i = 0; i < root.d.size(); ++i) {
                     D item = root.d.get(i);
-                    if (item.i == null || item.l == null || item.y == null 
+                    if (item.i == null || item.l == null || item.y == null
                             || item.rank == null || item.s == null
                             || item.q == null || item.id == null) {
                         continue;
@@ -67,13 +67,15 @@ public class MovieModel {
     public static void getRecommendations() {
         try (BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
-            String line;
+
             int counter_lines = 0;
+            String line;
             while ((line = reader.readLine()) != null && counter_lines != 5) {
                 int first_semicolon = line.indexOf(';');
                 String tittle = line.substring(0, first_semicolon);
 
                 String imageUrl = "";
+
                 for (int i = first_semicolon + 1; i < line.length(); ++i) {
                     if (line.charAt(i) == ';') {
                         imageUrl = line.substring(first_semicolon + 1, i);
@@ -147,9 +149,7 @@ public class MovieModel {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
             MovieViewFX.recommendationScene(r);
         } catch (IOException e) {
             e.printStackTrace();
