@@ -40,29 +40,39 @@ public class MovieViewFX {
     }
 
     public static void favoriteScene(List<CrucialSearchElements> favoritesList) throws IOException {
-        // TODO
-        for (CrucialSearchElements crucialSearchElement : favoritesList) {
-            System.out.println("Titulo: " + crucialSearchElement.title);
-            System.out.println("Id: " + crucialSearchElement.id);
-            System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
-        }
+        FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("favorites-scene.fxml"));
+        Parent root = loader.load();
+
+        MovieFavoritesSceneController controller = loader.getController();
+        controller.setMovies(favoritesList);
+
+        Scene scene = new Scene(root, width, height);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void recommendationScene(List<CrucialSearchElements> recommendationList) throws IOException {
-        // TODO
-        for (CrucialSearchElements crucialSearchElement : recommendationList) {
-            System.out.println("Titulo: " + crucialSearchElement.title);
-            System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
-        }
+        FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("recommendations-scene.fxml"));
+        Parent root = loader.load();
+
+        MovieRecommendationsSceneController controller = loader.getController();
+        controller.setMovies(recommendationList);
+
+        Scene scene = new Scene(root, width, height);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public static void interestsScene(List<CrucialSearchElements> interestsList) {
-        // TODO
-        for (CrucialSearchElements crucialSearchElement : interestsList) {
-            System.out.println("Titulo: " + crucialSearchElement.title);
-            System.out.println("Id: " + crucialSearchElement.id);
-            System.out.println("ImageUrl: " + crucialSearchElement.imageUrl);
-        }
+    public static void interestsScene(List<CrucialSearchElements> interestsList) throws IOException {
+        // FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("-scene.fxml"));
+        // Parent root = loader.load();
+
+        // MovieInterestsSceneController controller = loader.getController();
+        // controller.setMovies(interestsList);
+
+        // Scene scene = new Scene(root, width, height);
+        // stage.setScene(scene);
+        // stage.show();
     }
 
     public static void watchedScene(List<CrucialSearchElements> watchedList) throws IOException {

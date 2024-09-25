@@ -96,7 +96,7 @@ public class MovieModel {
                 counter_lines++;
             }
 
-            List<CrucialSearchElements> r = new ArrayList<>();
+            List<CrucialSearchElements> res = new ArrayList<>();
 
             for (CrucialSearchElements crucialSearchElements : result) {
                 String id = crucialSearchElements.id;
@@ -132,7 +132,7 @@ public class MovieModel {
                         item.i = new I();
                         item.i.imageUrl = imageUrl;
 
-                        r.add(new CrucialSearchElements(item));
+                        res.add(new CrucialSearchElements(item));
 
                         /*
                          * System.out.println("Title: " +
@@ -150,7 +150,11 @@ public class MovieModel {
                     e.printStackTrace();
                 }
             }
-            MovieViewFX.recommendationScene(r);
+            for (CrucialSearchElements item : res) {
+                System.out.println(item.title);
+                System.out.println(item.rank);
+            }
+            MovieViewFX.recommendationScene(res);
         } catch (IOException e) {
             e.printStackTrace();
         }
