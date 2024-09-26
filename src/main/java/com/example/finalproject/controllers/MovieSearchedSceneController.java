@@ -49,23 +49,7 @@ public class MovieSearchedSceneController {
         backHomeButton.setOnAction(_ -> returnToInitialScene());
         previousButton.setOnAction(_ -> showPreviousMovie());
         nextButton.setOnAction(_ -> showNextMovie());
-        watchedButton.setOnAction(_ -> {
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("MoviesApp");
-            dialog.setHeaderText("Watched");
-            dialog.setContentText("Add a Grade (0-10): ");
-
-            Optional<String> result = dialog.showAndWait();
-
-            result.ifPresent(grade -> {
-                try {
-                    int g = Integer.parseInt(grade);
-                    MovieModel.addWatched(g, movies.get(currentIndex));
-                } catch (NumberFormatException ex) {
-                    //TODO
-                }
-            });
-        });
+        watchedButton.setOnAction(_ -> watchedMovie());
         interestsButton.setOnAction(_ -> {
             MovieModel.addInterest(movies.get(currentIndex));
             MovieViewFX.showAlert("Filme adicionado a lista de interesses!", AlertType.INFORMATION);
@@ -100,5 +84,16 @@ public class MovieSearchedSceneController {
         movieActors.setText("Actors: " + movie.actors);
         movieYear.setText("Year: " + movie.year);
         moviePoster.setImage(movie.image);
+    }
+
+    private void watchedMovie () {
+
+        Optional<Integer> grade = MovieViewFX.askForReview();
+        if (grade.isPresent()) {
+            MovieModel.addWatched(grade.get(), movies.get(currentIndex));
+        } else {
+            MovieViewFX.showAlert("Ação cancelada! O filme não foi inserido em Assistidos.", AlertType.WARNING);
+        }
+
     }
 }

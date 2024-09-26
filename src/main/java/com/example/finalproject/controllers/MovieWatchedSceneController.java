@@ -27,22 +27,6 @@ public class MovieWatchedSceneController {
     private Button nextButton;
     @FXML
     GridPane moviesGrid;
-    @FXML
-    private Button removeButton1;
-    @FXML
-    private Button removeButton2;
-    @FXML
-    private Button removeButton3;
-    @FXML
-    private Button removeButton4;
-    @FXML
-    private Button favoriteButton1;
-    @FXML
-    private Button favoriteButton2;
-    @FXML
-    private Button favoriteButton3;
-    @FXML
-    private Button favoriteButton4;
 
     private List<CrucialSearchElements> movies;
     private int pageOffset = 0;
@@ -161,7 +145,7 @@ public class MovieWatchedSceneController {
         nextButton.setDisable(pageOffset + 4 >= movies.size());
     }
 
-    public void removeMovie (int movieGridPosition) {
+    private void removeMovie (int movieGridPosition) {
 
         MovieModel.removeMovie(movieIDs[movieGridPosition], "watched.txt");
         movies.remove(movieGridPosition + pageOffset);
@@ -169,7 +153,7 @@ public class MovieWatchedSceneController {
 
     }
 
-    public void favoriteMovie (int movieGridPosition) {
+    private void favoriteMovie (int movieGridPosition) {
 
         MovieModel.removeMovie(movieIDs[movieGridPosition], "favorites.txt");
         MovieModel.addFavorite(movies.get(movieGridPosition + pageOffset));

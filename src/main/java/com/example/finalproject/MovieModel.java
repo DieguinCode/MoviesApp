@@ -270,7 +270,7 @@ public class MovieModel {
 
         } catch (FileNotFoundException ignore) {
 
-            System.out.println("Arquivo \"favorites.txt\" não existe!");
+            System.out.println("Arquivo " + fileName + " não existe!");
 
         } catch (Exception e) {
 
