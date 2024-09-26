@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.gsondatastructures;
 
 public class Title{
     public String id;

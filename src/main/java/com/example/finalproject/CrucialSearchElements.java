@@ -6,15 +6,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import com.example.finalproject.gsondatastructures.D;
+
 public class CrucialSearchElements {
-    String id;
-    String imageUrl;
-    Image image;
-    String title;
-    Integer year;
-    Integer rank; // Grade
-    String actors;
-    String style;
+    public String id;
+    public String imageUrl;
+    public Image image;
+    public String title;
+    public Integer year;
+    public Integer rank; // Grade
+    public String actors;
+    public String style;
 
     public CrucialSearchElements(D item) {
         this.id = item.id;

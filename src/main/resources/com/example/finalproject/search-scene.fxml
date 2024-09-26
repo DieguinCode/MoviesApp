@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="384.0" prefWidth="445.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject.MovieSearchSceneController">
+<AnchorPane prefHeight="384.0" prefWidth="445.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject.controllers.MovieSearchSceneController">
     <children>
         <HBox alignment="CENTER" layoutY="97.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <Label text="Pesquisa:">

@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+import com.example.finalproject.controllers.MovieFavoritesSceneController;
+import com.example.finalproject.controllers.MovieInterestsSceneController;
+import com.example.finalproject.controllers.MovieRecommendationsSceneController;
+import com.example.finalproject.controllers.MovieSearchedSceneController;
+import com.example.finalproject.controllers.MovieWatchedSceneController;
+
 public class MovieViewFX {
 
     public static Stage stage;

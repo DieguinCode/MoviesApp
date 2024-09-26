@@ -1,7 +1,11 @@
-package com.example.finalproject;
+package com.example.finalproject.controllers;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.example.finalproject.CrucialSearchElements;
+import com.example.finalproject.MovieModel;
+import com.example.finalproject.MovieViewFX;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;

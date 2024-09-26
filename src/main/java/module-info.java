@@ -6,5 +6,8 @@ module com.example.finalproject {
 
 
     opens com.example.finalproject to javafx.fxml;
+    opens com.example.finalproject.controllers to javafx.fxml;
     exports com.example.finalproject;
+    exports com.example.finalproject.controllers;
+    exports com.example.finalproject.gsondatastructures;
 }

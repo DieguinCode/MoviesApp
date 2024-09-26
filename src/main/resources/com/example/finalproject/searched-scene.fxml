@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" stylesheets="@styles.css" fx:controller="com.example.finalproject.MovieSearchedSceneController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" stylesheets="@styles.css" fx:controller="com.example.finalproject.controllers.MovieSearchedSceneController">
 
     <VBox alignment="CENTER" spacing="10" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100" AnchorPane.topAnchor="50">
         <ImageView fx:id="moviePoster" fitHeight="300" fitWidth="200" />

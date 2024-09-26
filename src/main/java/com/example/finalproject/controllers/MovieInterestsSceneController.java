@@ -1,7 +1,10 @@
-package com.example.finalproject;
+package com.example.finalproject.controllers;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.example.finalproject.CrucialSearchElements;
+import com.example.finalproject.MovieViewFX;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
-public class MovieFavoritesSceneController {
+public class MovieInterestsSceneController {
 
     @FXML
     private Button backHomeButton;

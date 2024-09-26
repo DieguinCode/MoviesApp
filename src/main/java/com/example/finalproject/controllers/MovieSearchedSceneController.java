@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +10,10 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import com.example.finalproject.CrucialSearchElements;
+import com.example.finalproject.MovieModel;
+import com.example.finalproject.MovieViewFX;
 
 public class MovieSearchedSceneController {
 

@@ -1,4 +1,7 @@
-package com.example.finalproject;
+package com.example.finalproject.controllers;
+
+import com.example.finalproject.MovieModel;
+import com.example.finalproject.MovieViewFX;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

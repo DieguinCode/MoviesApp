@@ -1,5 +1,9 @@
 package com.example.finalproject;
 
+import com.example.finalproject.gsondatastructures.D;
+import com.example.finalproject.gsondatastructures.I;
+import com.example.finalproject.gsondatastructures.RespRec;
+import com.example.finalproject.gsondatastructures.Root;
 import com.google.gson.Gson;
 
 import javafx.scene.control.Alert.AlertType;
