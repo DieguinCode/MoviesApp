@@ -2,8 +2,7 @@ package com.example.finalproject;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
-import java.io.IOException;
+import javafx.scene.control.Alert.AlertType;
 
 public class MovieMainSceneController {
 
@@ -24,8 +23,11 @@ public class MovieMainSceneController {
         searchButton.setOnAction(_ -> {
             try {
                 MovieViewFX.searchScene();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+
+                MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
+                e.printStackTrace();
+    
             }
         });
         favoriteButton.setOnAction(_ -> {
@@ -41,4 +43,5 @@ public class MovieMainSceneController {
             MovieModel.getInterests();
         });
     }
+
 }

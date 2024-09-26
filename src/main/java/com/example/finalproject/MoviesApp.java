@@ -13,9 +13,8 @@ public class MoviesApp extends Application {
         MovieViewFX.stage = stage;
         MovieViewFX.initialScene();
 
-        stage.minHeightProperty().set(400);
-        stage.minWidthProperty().set(400);
-        stage.setMaximized(true);
+        stage.minHeightProperty().set(700);
+        stage.minWidthProperty().set(600);
 
     }
 

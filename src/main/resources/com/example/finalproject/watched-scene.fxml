@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@styles.css" prefHeight="471.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject.MovieWatchedSceneController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject.MovieWatchedSceneController">
    <children>
-      <HBox prefHeight="63.0" prefWidth="604.0">
+      <HBox prefHeight="40.0" prefWidth="716.0">
          <children>
             <Button fx:id="backHomeButton" mnemonicParsing="false" text="Voltar para o inicio" />
          </children>
@@ -21,7 +21,7 @@
             <Insets left="5.0" top="5.0" />
          </padding>
       </HBox>
-      <GridPane fx:id="moviesGrid" prefHeight="418.0" prefWidth="604.0">
+      <GridPane fx:id="moviesGrid" maxHeight="1.7976931348623157E308" prefHeight="553.0" prefWidth="716.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,6 +36,20 @@
                   <ImageView fx:id="moviePoster1" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="movieTitle1" />
                   <Label fx:id="movieRating1" />
+                  <HBox alignment="CENTER" prefHeight="26.0" prefWidth="358.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="removeButton1" mnemonicParsing="false" text="Remover de Assistidos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="favoriteButton1" mnemonicParsing="false" text="Adicionar a Favoritos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox fx:id="movie2" alignment="CENTER" prefHeight="72.0" prefWidth="176.0" GridPane.columnIndex="1">
@@ -43,6 +57,20 @@
                   <ImageView fx:id="moviePoster2" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="movieTitle2" />
                   <Label fx:id="movieRating2" />
+                  <HBox alignment="CENTER" prefHeight="26.0" prefWidth="358.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="removeButton2" mnemonicParsing="false" text="Remover de Assistidos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="favoriteButton2" mnemonicParsing="false" text="Adicionar a Favoritos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox fx:id="movie3" alignment="CENTER" prefHeight="72.0" prefWidth="176.0" GridPane.rowIndex="1">
@@ -50,6 +78,20 @@
                   <ImageView fx:id="moviePoster3" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="movieTitle3" />
                   <Label fx:id="movieRating3" />
+                  <HBox alignment="CENTER" prefHeight="26.0" prefWidth="358.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="removeButton3" mnemonicParsing="false" text="Remover de Assistidos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="favoriteButton3" mnemonicParsing="false" text="Adicionar a Favoritos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox fx:id="movie4" alignment="CENTER" prefHeight="72.0" prefWidth="176.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -57,11 +99,25 @@
                   <ImageView fx:id="moviePoster4" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="movieTitle4" />
                   <Label fx:id="movieRating4" />
+                  <HBox alignment="CENTER" prefHeight="26.0" prefWidth="358.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="removeButton4" mnemonicParsing="false" text="Remover de Assistidos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="favoriteButton4" mnemonicParsing="false" text="Adicionar a Favoritos">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
       </GridPane>
-      <HBox alignment="BASELINE_CENTER" prefHeight="56.0" prefWidth="604.0" spacing="20.0">
+      <HBox alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="716.0" spacing="20.0">
          <children>
             <Button fx:id="previousButton" mnemonicParsing="false" text="Anterior">
                <font>

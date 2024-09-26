@@ -264,6 +264,10 @@ public class MovieModel {
                 fileOut.close();
             }
 
+        } catch (FileNotFoundException ignore) {
+
+            System.out.println("Arquivo \"favorites.txt\" não existe!");
+
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);

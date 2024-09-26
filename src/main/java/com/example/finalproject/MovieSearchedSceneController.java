@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class MovieSearchedSceneController {
         });
         interestsButton.setOnAction(_ -> {
             MovieModel.addInterest(movies.get(currentIndex));
+            MovieViewFX.showAlert("Filme adicionado a lista de interesses!", AlertType.INFORMATION);
         });
     }
 
