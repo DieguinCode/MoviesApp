@@ -3,6 +3,8 @@ package com.example.finalproject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -64,15 +66,15 @@ public class MovieViewFX {
     }
 
     public static void interestsScene(List<CrucialSearchElements> interestsList) throws IOException {
-        // FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("-scene.fxml"));
-        // Parent root = loader.load();
+        FXMLLoader loader = new FXMLLoader(MovieViewFX.class.getResource("-scene.fxml"));
+        Parent root = loader.load();
 
-        // MovieInterestsSceneController controller = loader.getController();
-        // controller.setMovies(interestsList);
+        MovieInterestsSceneController controller = loader.getController();
+        controller.setMovies(interestsList);
 
-        // Scene scene = new Scene(root, width, height);
-        // stage.setScene(scene);
-        // stage.show();
+        Scene scene = new Scene(root, width, height);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void watchedScene(List<CrucialSearchElements> watchedList) throws IOException {
@@ -98,4 +100,14 @@ public class MovieViewFX {
         stage.setScene(scene);
         stage.show();
     }
+
+    public static void showAlert (String message, AlertType alertType) {
+
+        Alert alert = new Alert(alertType);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+
+    }
+
 }

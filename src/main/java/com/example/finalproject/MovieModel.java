@@ -2,6 +2,8 @@ package com.example.finalproject;
 
 import com.google.gson.Gson;
 
+import javafx.scene.control.Alert.AlertType;
+
 import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -53,14 +55,21 @@ public class MovieModel {
                 // Call View
                 try {
                     MovieViewFX.searchedScene(crucialElementsList);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             } else {
                 System.out.println("xiiii");
             }
+        } catch (FileNotFoundException e) {
+
+            MovieViewFX.showAlert("Você não possui filmes marcados como assistido!", AlertType.INFORMATION);
+
         } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
     }
 
@@ -150,14 +159,19 @@ public class MovieModel {
                     e.printStackTrace();
                 }
             }
-            for (CrucialSearchElements item : res) {
-                System.out.println(item.title);
-                System.out.println(item.rank);
-            }
+
             MovieViewFX.recommendationScene(res);
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+
+            MovieViewFX.showAlert("Você não possui nenhum filme marcado como favorito, logo não é possível recomendar!", AlertType.INFORMATION);
+
+        } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
+
     }
 
     public static void addWatched(int grade, CrucialSearchElements crucialSearchElement) {
@@ -166,7 +180,7 @@ public class MovieModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("watched.txt", true))) {
             writer.write(newLine);
             writer.newLine();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -211,8 +225,15 @@ public class MovieModel {
 
             MovieViewFX.watchedScene(result);
 
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+
+            MovieViewFX.showAlert("Você não possui filmes marcados como assistido!", AlertType.INFORMATION);
+
+        } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
     }
 
@@ -220,25 +241,34 @@ public class MovieModel {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             StringBuffer inputBuffer = new StringBuffer();
+            boolean movieFound = false;
+            
             while ((line = reader.readLine()) != null) {
+                // Se a linha contém o ID do filme, não a adicionamos no buffer
                 if (line.contains(id)) {
-                    // Empty Line
-                    inputBuffer.append('\n');
-                    break;
-                } else {
-                    inputBuffer.append(line);
-                    inputBuffer.append('\n');
-                }
+                    movieFound = true;
+                    // Pulamos essa linha, então não a adicionamos no inputBuffer
+                    continue;
+                } 
+                // Adiciona todas as outras linhas (não correspondentes ao ID) no buffer
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
             }
+
             reader.close();
 
-            // write the new string with the replaced line OVER the same file
-            FileOutputStream fileOut = new FileOutputStream("notes.txt");
-            fileOut.write(inputBuffer.toString().getBytes());
-            fileOut.close();
+            // Reescreve o conteúdo do arquivo apenas se o filme foi encontrado
+            if (movieFound) {
+                FileOutputStream fileOut = new FileOutputStream(fileName);
+                fileOut.write(inputBuffer.toString().getBytes());
+                fileOut.close();
+            }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
     }
 
@@ -248,8 +278,11 @@ public class MovieModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("favorites.txt", true))) {
             writer.write(newLine);
             writer.newLine();
-        } catch (IOException e) {
+        } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
     }
 
@@ -283,8 +316,15 @@ public class MovieModel {
 
             MovieViewFX.favoriteScene(result);
 
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+
+            MovieViewFX.showAlert("Você não possui filmes marcados como favorito!", AlertType.INFORMATION);
+
+        } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
     }
 
@@ -294,8 +334,11 @@ public class MovieModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("interests.txt", true))) {
             writer.write(newLine);
             writer.newLine();
-        } catch (IOException e) {
+        } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
     }
 
@@ -329,8 +372,15 @@ public class MovieModel {
 
             MovieViewFX.interestsScene(result);
 
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+
+            MovieViewFX.showAlert("Você não possui filmes na sua lista de interesses!", AlertType.INFORMATION);
+
+        } catch (Exception e) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+
         }
     }
 
