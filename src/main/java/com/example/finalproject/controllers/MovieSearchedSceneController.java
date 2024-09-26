@@ -3,7 +3,6 @@ package com.example.finalproject.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 
@@ -51,6 +50,7 @@ public class MovieSearchedSceneController {
         nextButton.setOnAction(_ -> showNextMovie());
         watchedButton.setOnAction(_ -> watchedMovie());
         interestsButton.setOnAction(_ -> {
+            MovieModel.removeMovie(movies.get(currentIndex).id, "interests.txt");
             MovieModel.addInterest(movies.get(currentIndex));
             MovieViewFX.showAlert("Filme adicionado a lista de interesses!", AlertType.INFORMATION);
         });
