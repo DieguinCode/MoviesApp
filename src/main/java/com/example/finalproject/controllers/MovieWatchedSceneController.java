@@ -1,19 +1,16 @@
 package com.example.finalproject.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
-import com.example.finalproject.CrucialSearchElements;
 import com.example.finalproject.MovieModel;
 import com.example.finalproject.MovieViewFX;
+import com.example.finalproject.views.MovieWatchedSceneView;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 
 public class MovieWatchedSceneController {
@@ -27,15 +24,13 @@ public class MovieWatchedSceneController {
     @FXML
     GridPane moviesGrid;
 
-    private List<CrucialSearchElements> movies;
-    private int pageOffset = 0;
-    private String[] movieIDs = new String[4];
+    private MovieWatchedSceneView view;
 
     @FXML
     public void initialize() {
         backHomeButton.setOnAction(e -> returnToInitialScene());
-        previousButton.setOnAction(e -> showPreviousPage());
-        nextButton.setOnAction(e -> showNextPage());
+        previousButton.setOnAction(e -> view.showPreviousPage());
+        nextButton.setOnAction(e -> view.showNextPage());
         previousButton.setDisable(true);
 
         VBox movieContainer;
@@ -60,9 +55,8 @@ public class MovieWatchedSceneController {
 
     }
 
-    public void setMovies(List<CrucialSearchElements> movies) {
-        this.movies = movies;
-        updateView();
+    public void setReferenceToView(MovieWatchedSceneView view) {
+        this.view = view;
     }
 
     private void returnToInitialScene() {
@@ -73,89 +67,30 @@ public class MovieWatchedSceneController {
         }
     }
 
-    private void showPreviousPage() {
-        if (pageOffset <= 0) {
-            return;
-        }
-        pageOffset -= 4;
-        updateView();
-   }
-
-    private void showNextPage() {
-        if (pageOffset + 4 >= movies.size()) {
-            return;
-        }
-        pageOffset += 4;
-        updateView();
+    public Button getPreviousButton () {
+        return this.previousButton;
     }
 
-    private void updateView() {
-        CrucialSearchElements movie;
-        VBox movieContainer;
-        ImageView moviePoster;
-        Label movieTitle;
-        Label movieGrade;
-        HBox movieOptionsContainer;
-        Button removeButton;
-        Button favoriteButton;
+    public Button getNextButton () {
+        return this.nextButton;
+    }
 
-        int i = 0;
-        while (i < moviesGrid.getChildren().size()) {
-            movieContainer = (VBox) moviesGrid.getChildren().get(i);
-            moviePoster = (ImageView) movieContainer.getChildren().get(0);
-            movieTitle = (Label) movieContainer.getChildren().get(1);
-            movieGrade = (Label) movieContainer.getChildren().get(2);
-
-            movieOptionsContainer = (HBox) movieContainer.getChildren().get(3);
-            removeButton = (Button) movieOptionsContainer.getChildren().get(0);
-            favoriteButton = (Button) movieOptionsContainer.getChildren().get(1);
-
-            if ((i + pageOffset) < movies.size()) {
-                movie = movies.get(i + pageOffset);
-                moviePoster.setImage(movie.image);
-                movieTitle.setText(movie.title);
-                movieGrade.setText("Nota do filme: " + movie.rank.toString());
-                movieIDs[i] = movie.id;
-
-                removeButton.setVisible(true);
-                removeButton.setDisable(false);
-                removeButton.setManaged(true);
-
-                favoriteButton.setVisible(true);
-                favoriteButton.setDisable(false);
-                favoriteButton.setManaged(true);
-            } else {
-                moviePoster.setImage(null);
-                movieTitle.setText("");
-                movieGrade.setText("");
-                movieIDs[i] = null;
-
-                removeButton.setVisible(false);
-                removeButton.setDisable(true);
-                removeButton.setManaged(false);
-
-                favoriteButton.setVisible(false);
-                favoriteButton.setDisable(true);
-                favoriteButton.setManaged(false);
-            }
-            i++;
-        }
-        previousButton.setDisable(pageOffset <= 0);
-        nextButton.setDisable(pageOffset + 4 >= movies.size());
+    public GridPane getGridPane () {
+        return this.moviesGrid;
     }
 
     private void removeMovie (int movieGridPosition) {
 
-        MovieModel.removeMovie(movieIDs[movieGridPosition], "watched.txt");
-        movies.remove(movieGridPosition + pageOffset);
-        updateView();
+        MovieModel.removeMovie(MovieModel.getWatchedMovies().get(movieGridPosition + view.getPageOffset()).id, "watched.txt");
+        MovieModel.getWatchedMovies().remove(movieGridPosition + view.getPageOffset());
+        view.updateView();
 
     }
 
     private void favoriteMovie (int movieGridPosition) {
 
-        MovieModel.removeMovie(movieIDs[movieGridPosition], "favorites.txt");
-        MovieModel.addFavorite(movies.get(movieGridPosition + pageOffset));
+        MovieModel.removeMovie(MovieModel.getWatchedMovies().get(movieGridPosition + view.getPageOffset()).id, "favorites.txt");
+        MovieModel.addFavorite(MovieModel.getWatchedMovies().get(movieGridPosition + view.getPageOffset()));
         MovieViewFX.showAlert("Filme adicionado aos favoritos!", AlertType.CONFIRMATION);
 
     }

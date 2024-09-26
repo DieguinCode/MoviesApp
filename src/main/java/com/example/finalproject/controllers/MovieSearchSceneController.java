@@ -1,13 +1,18 @@
 package com.example.finalproject.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.example.finalproject.MovieModel;
 import com.example.finalproject.MovieViewFX;
+import com.example.finalproject.MoviesApp;
+import com.example.finalproject.views.MovieSearchedSceneView;
+import com.example.finalproject.CrucialSearchElements;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class MovieSearchSceneController {
 
@@ -33,7 +38,7 @@ public class MovieSearchSceneController {
         try {
             MovieViewFX.initialScene();
         } catch (IOException e) {
-            //TODO
+            e.printStackTrace();
         }
     }
 
@@ -50,6 +55,28 @@ public class MovieSearchSceneController {
         }
 
         String final_result = search.toString();
-        MovieModel.autoComplete(final_result);
+        List<CrucialSearchElements> movies = MovieModel.autoComplete(final_result);
+        if (movies.isEmpty()) {
+
+            MovieViewFX.showAlert("Nenhum resultado foi encontrado!", AlertType.WARNING);
+
+        } else if (movies == null) {
+
+            MovieViewFX.showAlert("Um erro inesperado ocorreu na busca!", AlertType.ERROR);
+
+        } else {
+
+            try {
+
+                new MovieSearchedSceneView().showScene(MoviesApp.stage);
+
+            } catch (Exception e) {
+
+                MovieViewFX.showAlert("Um erro inesperado ocorreu na busca!", AlertType.ERROR);
+                e.printStackTrace();
+
+            }
+
+        }
     }
 }

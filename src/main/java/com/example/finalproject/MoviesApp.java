@@ -7,10 +7,14 @@ import java.io.IOException;
 
 public class MoviesApp extends Application {
 
+    public static Stage stage;
+
     @Override
     public void start(Stage stage) throws IOException {
 
-        MovieViewFX.stage = stage;
+        this.stage = stage;
+
+        MovieModel.downloadMovies();
         MovieViewFX.initialScene();
 
         stage.minHeightProperty().set(700);

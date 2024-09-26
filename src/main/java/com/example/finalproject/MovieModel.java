@@ -19,7 +19,51 @@ import java.util.Random;
 
 public class MovieModel {
 
-    public static void autoComplete(String userInput) {
+    private static List<CrucialSearchElements> watchedMovies = null;
+    private static List<CrucialSearchElements> favoriteMovies = null;
+    private static List<CrucialSearchElements> interestsMovies = null;
+    private static List<CrucialSearchElements> lastSearchMovies = null;
+    private static List<CrucialSearchElements> lastRecommendationsMovies = null;
+
+    public static List<CrucialSearchElements> getWatchedMovies () {
+
+        return watchedMovies;
+
+    }
+
+    public static List<CrucialSearchElements> getFavoritesMovies () {
+
+        return favoriteMovies;
+
+    }
+
+    public static List<CrucialSearchElements> getInterestsMovies () {
+
+        return interestsMovies;
+
+    }
+
+    public static List<CrucialSearchElements> getLastSearchMovies () {
+
+        return lastSearchMovies;
+
+    }
+
+    public static List<CrucialSearchElements> getLastRecommendationsMovies () {
+
+        return lastRecommendationsMovies;
+
+    }
+
+    public static void downloadMovies () {
+
+        watchedMovies = downloadWatchedMovies();
+        favoriteMovies = downloadFavoriteMovies();
+        interestsMovies = downloadInterestsMovies();
+
+    }
+
+    public static List<CrucialSearchElements> autoComplete(String userInput) {
         String tmp = "https://online-movie-database.p.rapidapi.com/auto-complete?q=";
         String uri = tmp.concat(userInput);
 
@@ -41,7 +85,7 @@ public class MovieModel {
                 Gson gson = new Gson();
                 Root root = gson.fromJson(response_body, Root.class);
 
-                List<CrucialSearchElements> crucialElementsList = new ArrayList<>();
+                List<CrucialSearchElements> result = new ArrayList<>();
                 for (int i = 0; i < root.d.size(); ++i) {
                     D item = root.d.get(i);
                     if (item.i == null || item.l == null || item.y == null
@@ -49,35 +93,35 @@ public class MovieModel {
                             || item.q == null || item.id == null) {
                         continue;
                     }
-                    crucialElementsList.add(new CrucialSearchElements(item));
+                    result.add(new CrucialSearchElements(item));
                 }
 
-                for (CrucialSearchElements item : crucialElementsList) {
+                for (CrucialSearchElements item : result) {
                     System.out.println(item);
                 }
 
-                // Call View
-                try {
-                    MovieViewFX.searchedScene(crucialElementsList);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                // MovieViewFX.searchedScene(result);
+                lastSearchMovies = result;
+                return result;
             } else {
                 System.out.println("xiiii");
+                return null;
             }
         } catch (FileNotFoundException e) {
 
             MovieViewFX.showAlert("Você não possui filmes marcados como assistido!", AlertType.INFORMATION);
+            return null;
 
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+            return null;
 
         }
     }
 
-    public static void getRecommendations() {
+    public static List<CrucialSearchElements> getRecommendations() {
         try (BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
 
@@ -164,15 +208,22 @@ public class MovieModel {
                 }
             }
 
-            MovieViewFX.recommendationScene(res);
+            // MovieViewFX.recommendationScene(res);
+            for (CrucialSearchElements item : res) {
+                System.out.println("Recomendado: " + item);
+            }
+            lastRecommendationsMovies = res;
+            return res;
         } catch (FileNotFoundException e) {
 
             MovieViewFX.showAlert("Você não possui nenhum filme marcado como favorito, logo não é possível recomendar!", AlertType.INFORMATION);
+            return null;
 
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+            return null;
 
         }
 
@@ -184,12 +235,13 @@ public class MovieModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("watched.txt", true))) {
             writer.write(newLine);
             writer.newLine();
+            watchedMovies.add(crucialSearchElement);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void getWatched() {
+    private static List<CrucialSearchElements> downloadWatchedMovies() {
         try (BufferedReader reader = new BufferedReader(new FileReader("watched.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
 
@@ -225,18 +277,22 @@ public class MovieModel {
                 item.i.imageUrl = imageUrl;
 
                 result.add(new CrucialSearchElements(item));
+                // watchedMovies.add(new CrucialSearchElements(item));
             }
 
-            MovieViewFX.watchedScene(result);
+            // MovieViewFX.watchedScene(result);
+            return result;
 
         } catch (FileNotFoundException e) {
 
             MovieViewFX.showAlert("Você não possui filmes marcados como assistido!", AlertType.INFORMATION);
+            return null;
 
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+            return null;
 
         }
     }
@@ -286,6 +342,7 @@ public class MovieModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("favorites.txt", true))) {
             writer.write(newLine);
             writer.newLine();
+            favoriteMovies.add(crucialSearchElement);
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
@@ -294,7 +351,7 @@ public class MovieModel {
         }
     }
 
-    public static void getFavorites() {
+    public static List<CrucialSearchElements> downloadFavoriteMovies() {
         try (BufferedReader reader = new BufferedReader(new FileReader("favorites.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
             String line;
@@ -322,16 +379,19 @@ public class MovieModel {
                 result.add(new CrucialSearchElements(item));
             }
 
-            MovieViewFX.favoriteScene(result);
+            // MovieViewFX.favoriteScene(result);
+            return result;
 
         } catch (FileNotFoundException e) {
 
             MovieViewFX.showAlert("Você não possui filmes marcados como favorito!", AlertType.INFORMATION);
+            return null;
 
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+            return null;
 
         }
     }
@@ -342,6 +402,7 @@ public class MovieModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("interests.txt", true))) {
             writer.write(newLine);
             writer.newLine();
+            interestsMovies.add(crucialSearchElement);
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
@@ -350,7 +411,7 @@ public class MovieModel {
         }
     }
 
-    public static void getInterests() {
+    public static List<CrucialSearchElements> downloadInterestsMovies() {
         try (BufferedReader reader = new BufferedReader(new FileReader("interests.txt"))) {
             List<CrucialSearchElements> result = new ArrayList<>();
             String line;
@@ -378,16 +439,18 @@ public class MovieModel {
                 result.add(new CrucialSearchElements(item));
             }
 
-            MovieViewFX.interestsScene(result);
+            return result;
 
         } catch (FileNotFoundException e) {
 
             MovieViewFX.showAlert("Você não possui filmes na sua lista de interesses!", AlertType.INFORMATION);
+            return null;
 
         } catch (Exception e) {
 
             MovieViewFX.showAlert("Um erro inesperado ocorreu!", AlertType.ERROR);
             e.printStackTrace();
+            return null;
 
         }
     }
