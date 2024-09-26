@@ -7,7 +7,6 @@ import com.example.finalproject.CrucialSearchElements;
 import com.example.finalproject.MovieModel;
 import com.example.finalproject.MovieViewFX;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
